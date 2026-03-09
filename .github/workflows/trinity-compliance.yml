@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
 
+concurrency:
+  group: trinity-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-compliance:
     runs-on: ubuntu-latest

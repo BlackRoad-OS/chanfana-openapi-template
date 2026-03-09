@@ -11,6 +11,10 @@ on:
   push:
     branches: [main, master]
 
+concurrency:
+  group: agents-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
   agent-response:
     runs-on: ubuntu-latest
