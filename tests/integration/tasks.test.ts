@@ -95,7 +95,7 @@ describe("Task API Integration Tests", () => {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(invalidTaskData),
 			});
-			const body = await response.json();
+			const body = await response.json<{ success: boolean; errors: any[] }>();
 
 			expect(response.status).toBe(400);
 			expect(body.success).toBe(false);
@@ -133,7 +133,7 @@ describe("Task API Integration Tests", () => {
 			const response = await SELF.fetch(
 				`http://local.test/tasks/${nonExistentId}`,
 			);
-			const body = await response.json();
+			const body = await response.json<{ success: boolean; errors: { message: string }[] }>();
 
 			expect(response.status).toBe(404);
 			expect(body.success).toBe(false);
@@ -258,7 +258,7 @@ describe("Task API Integration Tests", () => {
 					method: "DELETE",
 				},
 			);
-			const body = await response.json();
+			const body = await response.json<{ success: boolean; errors: { message: string }[] }>();
 
 			expect(response.status).toBe(404);
 			expect(body.success).toBe(false);
